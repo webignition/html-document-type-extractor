@@ -1,0 +1,27 @@
+{
+    "name": "webignition/html-document-type-extractor",
+    "description": "Extract the doctype from a HTML document",
+    "keywords": ["html", "document", "doctype", "extractor"],
+    "homepage": "https://github.com/webignition/html-document-type-extractor",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Cram",
+            "email": "jon@webignition.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "webignition\\Tests": "tests/",
+            "": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/class-loader": "*",
+        "phpunit/phpunit": "3.7.*",
+        "webignition/html-document-type-generator":">=0.5.4,<1",
+        "icanboogie/inflector":"1.0"
+    },            
+    "minimum-stability":"stable"
+}
