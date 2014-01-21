@@ -7,11 +7,11 @@ use webignition\Tests\HtmlDocumentType\Extractor\GetDocumentType\GetDocumentType
 class LowercaseFpiCaseTest extends GetDocumentTypeTest {   
     
     protected function getUnderTestDoctypeCollection() {        
-        return $this->getGenerator()->lowercaseFpi()->getAllKnown();
+        return $this->doctypeList['lowercase-fpi'];
     }
     
     protected function getExpectedDoctypeCollection() {
-        return $this->getKeyNormalisedDoctypeCollection($this->getGenerator()->lowercaseFpi()->getAllKnown());
+        return $this->doctypeList['lowercase-fpi'];
     }    
     
 }

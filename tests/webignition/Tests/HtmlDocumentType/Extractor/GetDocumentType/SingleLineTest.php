@@ -7,6 +7,6 @@ use webignition\Tests\HtmlDocumentType\Extractor\GetDocumentType\GetDocumentType
 class SingleLineTest extends GetDocumentTypeTest {    
     
     protected function getUnderTestDoctypeCollection() {
-        return $this->getGenerator()->getAllKnown();
+        return $this->doctypeList['default'];
     }
 }

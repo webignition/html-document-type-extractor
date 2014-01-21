@@ -7,10 +7,10 @@ use webignition\Tests\HtmlDocumentType\Extractor\GetDocumentType\GetDocumentType
 class UppercaseFpiTest extends GetDocumentTypeTest {   
     
     protected function getUnderTestDoctypeCollection() {        
-        return $this->getGenerator()->uppercaseFpi()->getAllKnown();
+        return $this->doctypeList['uppercase-fpi'];
     }
     
     protected function getExpectedDoctypeCollection() {
-        return $this->getKeyNormalisedDoctypeCollection($this->getGenerator()->uppercaseFpi()->getAllKnown());
+        return $this->doctypeList['uppercase-fpi'];
     } 
 }

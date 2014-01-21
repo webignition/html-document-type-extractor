@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\Tests\HtmlDocumentType\Extractor\GetDocumentType\WithXmlPrefix;
+namespace webignition\Tests\HtmlDocumentType\Extractor\GetDocumentType\WithPrecedingComments;
 
 use webignition\Tests\HtmlDocumentType\Extractor\GetDocumentType\GetDocumentTypeTest;
 
@@ -11,7 +11,7 @@ class SingleLineCommentBeforeDoctypeTest extends GetDocumentTypeTest {
     }
     
     protected function getUnderTestDoctypeCollection() {
-        return $this->getGenerator()->getAllKnown();
+        return $this->doctypeList['default'];
     }
     
     protected function getFixtureContent() {
