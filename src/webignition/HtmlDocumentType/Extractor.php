@@ -107,7 +107,7 @@ class Extractor {
      * @return boolean
      */
     public function hasDocumentType() {        
-        return $this->documentTypeString != '';
+        return $this->getDocumentTypeString() != '';
     }
     
 }

@@ -20,7 +20,6 @@
     "require-dev": {
         "symfony/class-loader": "*",
         "phpunit/phpunit": "3.7.*",
-        "webignition/html-document-type-generator":">=0.5.4,<1",
         "icanboogie/inflector":"1.0"
     },            
     "minimum-stability":"stable"

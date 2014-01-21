@@ -7,7 +7,7 @@ use webignition\Tests\HtmlDocumentType\Extractor\HasDocumentType\HasDocumentType
 abstract class DoctypePrefixCaseTest extends HasDocumentTypeTest {   
     
     protected function getUnderTestDoctypeCollection() {        
-        $doctypeCollection = $this->getGenerator()->getAllKnown();
+        $doctypeCollection = $this->doctypeList['default'];
         
         foreach ($doctypeCollection as $key => $value) {            
             $doctypeCollection[$key] = str_replace('<!DOCTYPE', '<!' . $this->getDoctypePrefixReplacement(), $value);

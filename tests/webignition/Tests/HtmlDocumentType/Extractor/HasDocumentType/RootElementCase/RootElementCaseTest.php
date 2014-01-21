@@ -7,7 +7,7 @@ use webignition\Tests\HtmlDocumentType\Extractor\HasDocumentType\HasDocumentType
 abstract class RootElementCaseTest extends HasDocumentTypeTest {   
     
     protected function getUnderTestDoctypeCollection() {        
-        $doctypeCollection = $this->getGenerator()->getAllKnown();
+        $doctypeCollection = $this->doctypeList['default'];
         
         foreach ($doctypeCollection as $key => $value) {                                    
             $doctypeCollection[$key] = preg_replace('/<!doctype html/i', '<!DOCTYPE ' . $this->getRootElementReplacement(), $value);

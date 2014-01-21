@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "179929b39e54a93b16987358b60df3fd",
+    "hash": "dcd65a375be6e1d1dcb9b59780323f9f",
     "packages": [
 
     ],
@@ -521,51 +521,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2013-12-28 08:12:03"
-        },
-        {
-            "name": "webignition/html-document-type-generator",
-            "version": "0.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/html-document-type-generator.git",
-                "reference": "e21738d0f8b10a7f0a62e59f51ffe752e20b2cb6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webignition/html-document-type-generator/zipball/e21738d0f8b10a7f0a62e59f51ffe752e20b2cb6",
-                "reference": "e21738d0f8b10a7f0a62e59f51ffe752e20b2cb6",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/class-loader": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "webignition\\Tests": "tests/",
-                    "": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "jon@webignition.net"
-                }
-            ],
-            "description": "Generate a doctype for a given HTML version and variant",
-            "homepage": "https://github.com/webignition/html-document-type-generator",
-            "keywords": [
-                "doctype",
-                "document",
-                "generator",
-                "html"
-            ],
-            "time": "2014-01-21 10:03:17"
         }
     ],
     "aliases": [

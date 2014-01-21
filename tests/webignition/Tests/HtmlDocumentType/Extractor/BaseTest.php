@@ -3,17 +3,10 @@
 namespace webignition\Tests\HtmlDocumentType\Extractor;
 
 use webignition\HtmlDocumentType\Extractor;
-use webignition\HtmlDocumentType\Generator;
 
 abstract class BaseTest extends \PHPUnit_Framework_TestCase {  
     
     const FIXTURES_BASE_PATH = '/../../../../fixtures';
-    
-    /**
-     *
-     * @var \webignition\HtmlDocumentType\Generator
-     */
-    private $generator;
     
     /**
      *
@@ -130,16 +123,8 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase {
     
     
     public function setUp() {        
-        $this->generator = new Generator();
+        //$this->generator = new Generator();
         $this->extractor = new Extractor();             
-    }    
-    
-    /**
-     * 
-     * @return \webignition\HtmlDocumentType\Generator
-     */
-    protected function getGenerator() {
-        return $this->generator;
     }
     
     /**

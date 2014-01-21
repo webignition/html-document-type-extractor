@@ -11,7 +11,7 @@ class OnDoctypeLineTest extends GetDocumentTypeTest {
     }
     
     protected function getUnderTestDoctypeCollection() {
-        return $this->doctypeList['default'];;
+        return $this->doctypeList['default'];
     }
     
     protected function getFixtureContent() {

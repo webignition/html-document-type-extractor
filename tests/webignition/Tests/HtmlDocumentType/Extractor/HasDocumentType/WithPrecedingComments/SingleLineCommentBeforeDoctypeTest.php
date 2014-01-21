@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\Tests\HtmlDocumentType\Extractor\HasDocumentType\WithXmlPrefix;
+namespace webignition\Tests\HtmlDocumentType\Extractor\HasDocumentType\WithPrecedingComments;
 
 use webignition\Tests\HtmlDocumentType\Extractor\HasDocumentType\HasDocumentTypeTest;
 
@@ -11,7 +11,7 @@ class MultilineCommentBeforeDoctype extends HasDocumentTypeTest {
     }
     
     protected function getUnderTestDoctypeCollection() {
-        return $this->getGenerator()->getAllKnown();
+        return $this->doctypeList['default'];
     }
     
     protected function getFixtureContent() {
