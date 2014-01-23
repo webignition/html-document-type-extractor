@@ -81,24 +81,8 @@ class Extractor {
     }
     
     
-    private function normaliseWhitespace() {        
-        $replacements = array(
-            '<!DOCTYPE\s\s+' => '<!DOCTYPE ',
-            '\s\s+PUBLIC\s' => ' PUBLIC ',
-            '\sPUBLIC\s\s+' => ' PUBLIC ',
-            '\s\s+SYSTEM\s' => ' SYSTEM ',
-            '\sSYSTEM\s\s+' => ' SYSTEM ',
-            '"\s\s+"' => '" "',
-            "'\s\s+'" => "' '",
-            '\'\s\s+"' => '\' "',
-            '"\s\s+\'' => '" \'',
-        );
-        
-        foreach ($replacements as $search => $replace) {
-            while (preg_match('/'.$search.'/', $this->documentTypeString)) {
-                $this->documentTypeString = preg_replace('/'.$search.'/', $replace, $this->documentTypeString);
-            }              
-        }      
+    private function normaliseWhitespace() {
+        $this->documentTypeString = preg_replace('/\s+/', ' ', $this->documentTypeString);    
     }
     
     

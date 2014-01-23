@@ -2,16 +2,14 @@
 
 namespace webignition\Tests\HtmlDocumentType\Extractor\HasDocumentType;
 
-use webignition\Tests\HtmlDocumentType\Extractor\BaseTest;
+use webignition\Tests\HtmlDocumentType\Extractor\GeneratedFixtureTest;
 
-abstract class HasDocumentTypeTest extends BaseTest {
+abstract class HasDocumentTypeTest extends GeneratedFixtureTest {
         
     public function setUp() {
         parent::setUp(); 
         $this->getExtractor()->setHtml($this->getFixtureContent());
     }
-    
-    abstract protected function getUnderTestDoctypeCollection();         
     
     public function testFpi_Only_Double_Quoted() {         
         $this->assertTrue($this->getExtractor()->hasDocumentType());

@@ -12,14 +12,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase {
      *
      * @var \webignition\HtmlDocumentType\Extractor
      */
-    private $extractor;
-    
-    
-    /**
-     *
-     * @var string
-     */
-    protected $fixtureTemplate = 'default';
+    private $extractor;    
     
     
     protected $doctypeList = array(
@@ -35,7 +28,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase {
             'fpi-single-quoted-and-uri-double-quoted' => '<!DOCTYPE html PUBLIC \'Fpi Value\' "uri value">',
             'fpi-double-quoted-and-uri-single-quoted' => '<!DOCTYPE html PUBLIC "Fpi Value" \'uri value\'>',
             'dtdless' => '<!DOCTYPE html>',
-            'html-5-legacy-compat' => '<!DOCTYPE html SYSTEM "about:legacy-compat">'
+            'html-5-legacy-compat' => '<!DOCTYPE html SYSTEM "about:legacy-compat">',
         ),
         'lowercase-fpi' => array(
             'fpi-only-double-quoted' => '<!DOCTYPE html PUBLIC "fpi value">',
@@ -64,7 +57,23 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase {
             'fpi-double-quoted-and-uri-single-quoted' => '<!DOCTYPE html PUBLIC "FPI VALUE" \'uri value\'>',
             'dtdless' => '<!DOCTYPE html>',
             'html-5-legacy-compat' => '<!DOCTYPE html SYSTEM "about:legacy-compat">'
+        ),     
+        'whitespace-input' => array(
+            'fpi-alpha-newline-alpha' => "<!DOCTYPE html PUBLIC \"FPI\nVALUE\">",
+            'fpi-alpha-tab-alpha' => "<!DOCTYPE html PUBLIC \"FPI\tVALUE\">",
+            'fpi-alpha-carriage-return-alpha' => "<!DOCTYPE html PUBLIC \"FPI\rVALUE\">", 
+            'fpi-alpha-space-newline-alpha' => "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 \nTransitional//EN\">",
+            'fpi-alpha-space-tab-alpha' => "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 \nTransitional//EN\">",
+            'fpi-alpha-space-carriage-return-alpha' => "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 \nTransitional//EN\">"
         ),        
+        'whitespace-output' => array(
+            'fpi-alpha-newline-alpha' => "<!DOCTYPE html PUBLIC \"FPI VALUE\">",
+            'fpi-alpha-tab-alpha' => "<!DOCTYPE html PUBLIC \"FPI VALUE\">",
+            'fpi-alpha-carriage-return-alpha' => "<!DOCTYPE html PUBLIC \"FPI VALUE\">",
+            'fpi-alpha-space-newline-alpha' => "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">",
+            'fpi-alpha-space-tab-alpha' => "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">",
+            'fpi-alpha-space-carriage-return-alpha' => "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">"
+        ),            
         'multiline' => array(
         'fpi-only-double-quoted' =>
 '<!DOCTYPE html PUBLIC
@@ -122,8 +131,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase {
     );
     
     
-    public function setUp() {        
-        //$this->generator = new Generator();
+    public function setUp() {
         $this->extractor = new Extractor();             
     }
     
@@ -168,23 +176,6 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase {
         }
         
         return $doctypeCollection;        
-    } 
-    
-
-    /**
-     * 
-     * @param string $templateName
-     * @param string $doctypeString
-     * @return string
-     */
-    protected function generateFixtureFromTemplate($templateName, $doctypeString) {        
-        return str_replace('{{DOCTYPE}}', $doctypeString, $this->getFixture('Templates/'.$templateName . '.html'));       
-    } 
-    
-    
-    protected function getFixtureContent() {
-        $underTestDoctypeCollection = $this->getUnderTestDoctypeCollection();
-        return $this->generateFixtureFromTemplate($this->fixtureTemplate, $underTestDoctypeCollection[$this->getDataKey()]);
     }
     
 }
