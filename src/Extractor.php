@@ -13,22 +13,11 @@ class Extractor
     private $documentTypeString = null;
 
     /**
-     * @var string
-     */
-    private $sourceHtml = '';
-
-    /**
-     * @var string
-     */
-    private $lowercaseSourceHtml = '';
-
-    /**
      * @param string $html
      */
     public function setHtml($html)
     {
-        $this->sourceHtml = trim($html);
-        $this->lowercaseSourceHtml = strtolower($this->sourceHtml);
+        $this->documentTypeString = $this->extractDocumentType($html);
     }
 
     /**
@@ -36,49 +25,44 @@ class Extractor
      */
     public function getDocumentTypeString()
     {
-        if (is_null($this->documentTypeString)) {
-            $doctypeMarkerPosition = strpos($this->lowercaseSourceHtml, '<!doctype ');
-
-            if (false === $doctypeMarkerPosition) {
-                $this->documentTypeString = '';
-            } else {
-                $htmlMarkerPosition = strpos($this->lowercaseSourceHtml, '<html');
-
-                if ($htmlMarkerPosition > $doctypeMarkerPosition || $htmlMarkerPosition === false) {
-                    $nextClosingBracketPosition = strpos($this->lowercaseSourceHtml, '>', $doctypeMarkerPosition);
-                    $this->documentTypeString = substr(
-                        $this->sourceHtml,
-                        $doctypeMarkerPosition,
-                        $nextClosingBracketPosition - $doctypeMarkerPosition + 1
-                    );
-                } else {
-                    $this->documentTypeString = '';
-                }
-            }
-
-            $this->setDoctypePrefixAndRootElementToCorrectCase();
-            $this->normalisePublicAndSystemKeywords();
-            $this->normaliseWhitespace();
-        }
-
         return $this->documentTypeString;
     }
 
-    private function setDoctypePrefixAndRootElementToCorrectCase()
+    private function extractDocumentType($html)
     {
-        $this->documentTypeString = preg_replace('/^\<\!doctype html/i', '<!DOCTYPE html', $this->documentTypeString);
-    }
+        $sourceHtml = trim($html);
+        $lowercaseSourceHtml = strtolower($sourceHtml);
 
-    private function normalisePublicAndSystemKeywords()
-    {
-        $this->documentTypeString = preg_replace('/\spublic\s/i', ' PUBLIC ', $this->documentTypeString);
-        $this->documentTypeString = preg_replace('/\system\s/i', ' SYSTEM ', $this->documentTypeString);
-    }
+        $documentTypeString = '';
+        $doctypeMarkerPosition = strpos($lowercaseSourceHtml, '<!doctype ');
 
-    private function normaliseWhitespace()
-    {
-        $this->documentTypeString = preg_replace('/\s+/', ' ', $this->documentTypeString);
-        $this->documentTypeString = preg_replace('/ >$/', '>', $this->documentTypeString);
+        if (false === $doctypeMarkerPosition) {
+            return $documentTypeString;
+        }
+
+        $htmlMarkerPosition = strpos($lowercaseSourceHtml, '<html');
+
+        if ($htmlMarkerPosition > $doctypeMarkerPosition || $htmlMarkerPosition === false) {
+            $nextClosingBracketPosition = strpos($lowercaseSourceHtml, '>', $doctypeMarkerPosition);
+            $documentTypeString = substr(
+                $sourceHtml,
+                $doctypeMarkerPosition,
+                $nextClosingBracketPosition - $doctypeMarkerPosition + 1
+            );
+        }
+
+        // Normalise doctype prefix and root element
+        $documentTypeString = preg_replace('/^\<\!doctype html/i', '<!DOCTYPE html', $documentTypeString);
+
+        // Normalise public and system keywords
+        $documentTypeString = preg_replace('/\spublic\s/i', ' PUBLIC ', $documentTypeString);
+        $documentTypeString = preg_replace('/\system\s/i', ' SYSTEM ', $documentTypeString);
+
+        // Normalise whitespace
+        $documentTypeString = preg_replace('/\s+/', ' ', $documentTypeString);
+        $documentTypeString = preg_replace('/ >$/', '>', $documentTypeString);
+
+        return $documentTypeString;
     }
 
     /**
@@ -86,6 +70,6 @@ class Extractor
      */
     public function hasDocumentType()
     {
-        return $this->getDocumentTypeString() != '';
+        return $this->documentTypeString != '';
     }
 }
