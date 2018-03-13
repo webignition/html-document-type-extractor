@@ -26,14 +26,16 @@ class ExtractorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getDocumentTypeStringDataProvider
      *
-     * @param $html
-     * @param $expectedDocumentTypeString
+     * @param string $html
+     * @param string $expectedDocumentTypeString
+     * @param bool $expectedHasDocumentType
      */
-    public function testGetDocumentTypeString($html, $expectedDocumentTypeString)
+    public function testGetHasDocumentTypeString($html, $expectedDocumentTypeString, $expectedHasDocumentType)
     {
         $this->extractor->setHtml($html);
 
         $this->assertEquals($expectedDocumentTypeString, $this->extractor->getDocumentTypeString());
+        $this->assertEquals($expectedHasDocumentType, $this->extractor->hasDocumentType());
     }
 
     /**
@@ -55,6 +57,7 @@ class ExtractorTest extends \PHPUnit_Framework_TestCase
             $docTypeInHtmlBodyDataSet['doctype in html body: ' . $key] = [
                 'html' => HtmlDocumentFactory::create($docType, HtmlDocumentFactory::TEMPLATE_KEY_DOCTYPE_IN_HTML_BODY),
                 'expectedDocumentTypeString' => '',
+                'expectedHasDocumentType' => false,
             ];
 
             $expectedDocType = $this->createExpectedDocTypeFromTestDocType($docType);
@@ -63,36 +66,42 @@ class ExtractorTest extends \PHPUnit_Framework_TestCase
             $hasDocTypeDataSet['has doctype: ' . $key] = [
                 'html' => HtmlDocumentFactory::create($docType),
                 'expectedDocumentTypeString' => $expectedDocType,
+                'expectedHasDocumentType' => true,
             ];
 
             // Has doctype, multi-line comment on line before doctype
             $hasDocTypeHasPrecedingMultiLineCommentDataSet['has doctype, preceding multi-line comment: ' . $key] = [
                 'html' => HtmlDocumentFactory::create("<!--[if IE ]>\nFoo\nBar!<![endif]-->\n" . $docType),
                 'expectedDocumentTypeString' => $expectedDocType,
+                'expectedHasDocumentType' => true,
             ];
 
             // Has doctype, multi-line comment on same line as doctype
             $hasDocTypeHasPrecedingSingleLineCommentDataSet['has doctype, preceding single-line comment: ' . $key] = [
                 'html' => HtmlDocumentFactory::create('<!--[if IE ]><![endif]-->' . "\n" . $docType),
                 'expectedDocumentTypeString' => $expectedDocType,
+                'expectedHasDocumentType' => true,
             ];
 
             // Has doctype, xml prefix on line before doctype
             $hasXmlPrefixPrecedingDocTypeLineDataSet['has doctype, xml prefix on preceding line: ' . $key] = [
                 'html' => HtmlDocumentFactory::create('<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $docType),
                 'expectedDocumentTypeString' => $expectedDocType,
+                'expectedHasDocumentType' => true,
             ];
 
             // Has doctype, xml prefix on same line as doctype
             $hasXmlPrefixOnDocTypeLineDataSet['has doctype, xml prefix on same line: ' . $key] = [
                 'html' => HtmlDocumentFactory::create('<?xml version="1.0" encoding="UTF-8"?>' . $docType),
                 'expectedDocumentTypeString' => $expectedDocType,
+                'expectedHasDocumentType' => true,
             ];
 
             // Blank lines preceding doctype
             $hasBlankLinesPrecedingDoctypeDataSet['has doctype, blank lines preceding: ' . $key] = [
                 'html' => HtmlDocumentFactory::create("\n\n\n" . $docType),
                 'expectedDocumentTypeString' => $expectedDocType,
+                'expectedHasDocumentType' => true,
             ];
         }
 
@@ -101,10 +110,12 @@ class ExtractorTest extends \PHPUnit_Framework_TestCase
                 'empty html' => [
                     'html' => '',
                     'expectedDocumentTypeString' => '',
+                    'expectedHasDocumentType' => false,
                 ],
                 'no doctype' => [
                     'html' => HtmlDocumentFactory::create(''),
                     'expectedDocumentTypeString' => '',
+                    'expectedHasDocumentType' => false,
                 ],
             ],
             $docTypeInHtmlBodyDataSet,
