@@ -1,4 +1,1 @@
-html-document-type-extractor
-============================
-
-Extract the doctype from a HTML document
+This package has been abandoned and superseded by [webignition/html-document-type](https://github.com/webignition/html-document-type)
